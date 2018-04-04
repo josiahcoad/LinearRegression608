@@ -9,8 +9,10 @@ library(car)
 library(leaps)
 library(My.stepwise)
 library(lars)
+# you might need to do install.packages("lars")
 
 # read the data
+# you might need to set the full path to the data
 pgatour.data <- read.csv("code/pgatour2006.csv", header=TRUE)
 attach(pgatour.data)
 
