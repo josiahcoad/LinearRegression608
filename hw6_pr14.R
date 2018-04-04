@@ -7,7 +7,6 @@
 library(MASS)
 library(car)
 library(leaps)
-library(My.stepwise)
 library(lars)
 # you might need to do install.packages("lars")
 
@@ -31,7 +30,13 @@ vif(lm)     # notice vif > 5. Serious problems with multicollinearity
 # run box cox
 X <- cbind(DrivingAccuracy, GIR, PuttingAverage, BirdieConversion, SandSaves, Scrambling, PuttsPerRound)
 transx = powerTransform(X)
-summary(transx) # notice the pval for no transformation... we need to transform!
+transy = powerTransform(PrizeMoney)
+summary(transx)  # notice 1 is in every CI. We don't need to transform x's.
+summary(transy)  # notice 0 is in CI. We need to log transform!
+
+# see plot of data versus log y
+hist(PrizeMoney)
+hist(log(PrizeMoney))
 
 # fit lm on logy
 lm.logy = lm(log(PrizeMoney) ~ DrivingAccuracy + GIR + PuttingAverage + BirdieConversion + SandSaves + Scrambling + PuttsPerRound)
@@ -106,8 +111,11 @@ step(lm.logy, direction="backward")
 base = lm(log(PrizeMoney)~1)
 step(base, scope=list(lower=base, upper=lm.logy), direction="forward", k=log(196))
 
-# forward using AIC
-step(base, scope=list(lower=base, upper=lm.logy), direction="forward")
+# forward using AIC and set equal to a model
+lm.step = step(base, scope=list(lower=base, upper=lm.logy), direction="forward")
+vif(lm.step) # much better!!
+par(cex.axis=2,cex.lab=2, mar=c(5.1,5.1,2,2),lwd=2, pch=19, mfrow=c(2,2))
+plot(lm.step) # much better!
 
 
 # ---- LASSO ----
