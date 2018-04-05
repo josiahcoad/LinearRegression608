@@ -3,7 +3,7 @@
 # by hand and then doing the F test for model reduction.
 
 # read the data
-mselect.data <- read.csv("code/mselect.csv", header=TRUE)
+mselect.data <- read.csv("data/mselect.csv", header=TRUE)
 plot(mselect.data)
 
 # take out all variables which aren't signifigant

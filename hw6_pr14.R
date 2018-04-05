@@ -12,7 +12,7 @@ library(lars)
 
 # read the data
 # you might need to set the full path to the data
-pgatour.data <- read.csv("code/pgatour2006.csv", header=TRUE)
+pgatour.data <- read.csv("data/pgatour2006.csv", header=TRUE)
 attach(pgatour.data)
 
 # data exploration

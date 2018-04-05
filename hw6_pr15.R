@@ -9,7 +9,7 @@ library(My.stepwise)
 library(lars)
 
 # See question 1 of Chapter 7, p. 252.
-mantel.data <- read.table("code/Mantel.txt", header=TRUE)
+mantel.data <- read.table("data/Mantel.txt", header=TRUE)
 plot(mantel.data)
 mantel.mod = lm(Y ~ X1 + X2 + X3, data=mantel.data)
 
